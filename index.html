@@ -7,25 +7,87 @@
     <link href="style.css" rel="stylesheet">
 </head>
 <body>
-    <button id="re-start">re-start</button>
+    <div id="menu">
+    <button id="re-start">Re-start Sketch</button>
+    <button id="color-palette">Color Palette</button>
+    </div>
     <div id="container"></div>
     <script>
         const container = document.querySelector("#container");
         const restart = document.querySelector("#re-start");
+        const colorPalette = document.querySelector("#color-palette");
+        const menu = document.querySelector("#menu");
+        let finColor = 'green';
         let canvaSize = 16;
+            const redColor = document.createElement('button');
+            const blueColor = document.createElement('button');
+            const greenColor = document.createElement('button');
+            const yellowColor = document.createElement('button');
+            const blackColor = document.createElement('button');
+            const whiteColor = document.createElement('button');
+
+            redColor.textContent = 'Red';
+            blueColor.textContent = 'Blue';
+            greenColor.textContent = 'Green';
+            yellowColor.textContent = 'Yellow';
+            blackColor.textContent ='Black';
+            whiteColor.textContent = 'White';
+        
+        colorPalette.addEventListener('click', (e) => {
+            menu.append(redColor);
+            menu.append(blueColor);
+            menu.append(yellowColor);
+            menu.append(greenColor);
+            menu.append(whiteColor);
+            menu.append(blackColor);
+
+            colorPalette.addEventListener('dblclick', (e) => {
+                menu.removeChild(redColor);
+                menu.removeChild(blueColor);
+                menu.removeChild(yellowColor);
+                menu.removeChild(greenColor);
+                menu.removeChild(whiteColor);
+                menu.removeChild(blackColor);
+            })
+
+
+        })
+
+        redColor.addEventListener('click', (e) => {
+                finColor = 'red';
+            })
+            blueColor.addEventListener('click', (e) => {
+                finColor = 'blue';
+            })
+            yellowColor.addEventListener('click', (e) => {
+                finColor = 'yellow';
+            })
+            greenColor.addEventListener('click', (e) => {
+                finColor = 'green';
+            })
+            whiteColor.addEventListener('click', (e) => {
+                finColor = 'white';
+            })
+            blackColor.addEventListener('click', (e) => {
+                finColor = 'black';
+            })
 
         for (let i=0; i<256; i++){
             const square = document.createElement('div');
             square.classList.add('square');
             square.style.width = `${958/canvaSize}px`;
             container.append(square);
+            square.id = `s${i}`;
             square.addEventListener('mouseover', () => {
                 square.style.backgroundColor = 'skyblue';
             });
             square.addEventListener('mouseout', () => {
-                square.style.backgroundColor = 'green';
-            })
+                square.style.backgroundColor = finColor;
+                square.style.opacity = 0.1;
+            });
         }
+
+        
 
         restart.addEventListener('click', () => {
             canvaSize = prompt('Please enter your desired canva size');
@@ -41,13 +103,15 @@
                 for (let i=0; i<canvaSize * canvaSize; i++){
                     const square = document.createElement('div');
                     square.classList.add('square');
+                    square.id = `s${i}`;
                     square.style.width = `${958/canvaSize}px`;
                     container.append(square);
                     square.addEventListener('mouseover', () => {
                         square.style.backgroundColor = 'skyblue';
                     });
                     square.addEventListener('mouseout', () => {
-                        square.style.backgroundColor = 'green';
+                        square.style.backgroundColor = finColor;
+                        square.style.opacity = 0.1;
                     })
                 }
 
@@ -55,6 +119,8 @@
                 alert('Invalid value entered. Only positive integers \ngreater than zero and less than 100 are accepted.');
             }
         })
+
+        
 
     </script>
 </body>
