@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Etch-a-Sketch</title>
+    <link href="style.css" rel="stylesheet">
+</head>
+<body>
+    <button id="re-start">re-start</button>
+    <div id="container"></div>
+    <script>
+        const container = document.querySelector("#container");
+        const restart = document.querySelector("#re-start");
+        let canvaSize = 16;
+
+        for (let i=0; i<256; i++){
+            const square = document.createElement('div');
+            square.classList.add('square');
+            square.style.width = `${958/canvaSize}px`;
+            container.append(square);
+            square.addEventListener('mouseover', () => {
+                square.style.backgroundColor = 'skyblue';
+            });
+            square.addEventListener('mouseout', () => {
+                square.style.backgroundColor = 'green';
+            })
+        }
+
+        restart.addEventListener('click', () => {
+            canvaSize = prompt('Please enter your desired canva size');
+            canvaSize = Number(canvaSize);
+            if (Number.isInteger(canvaSize) && canvaSize < 100 && canvaSize > 0){
+                const allSquares = document.querySelectorAll(".square");
+                let previousSize = Array.from(allSquares).length;
+                while (previousSize > 0){
+                    container.removeChild(container.firstChild);
+                    previousSize--;
+                }
+
+                for (let i=0; i<canvaSize * canvaSize; i++){
+                    const square = document.createElement('div');
+                    square.classList.add('square');
+                    square.style.width = `${958/canvaSize}px`;
+                    container.append(square);
+                    square.addEventListener('mouseover', () => {
+                        square.style.backgroundColor = 'skyblue';
+                    });
+                    square.addEventListener('mouseout', () => {
+                        square.style.backgroundColor = 'green';
+                    })
+                }
+
+            } else {
+                alert('Invalid value entered. Only positive integers \ngreater than zero and less than 100 are accepted.');
+            }
+        })
+
+    </script>
+</body>
+</html>
