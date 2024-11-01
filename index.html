@@ -41,7 +41,7 @@
             menu.append(whiteColor);
             menu.append(blackColor);
 
-            colorPalette.addEventListener('dblclick', (e) => {
+            colorPalette.addEventListener('dblclick', () => {
                 menu.removeChild(redColor);
                 menu.removeChild(blueColor);
                 menu.removeChild(yellowColor);
@@ -53,7 +53,9 @@
 
         })
 
-        redColor.addEventListener('click', (e) => {
+    
+
+            redColor.addEventListener('click', (e) => {
                 finColor = 'red';
             })
             blueColor.addEventListener('click', (e) => {
@@ -77,18 +79,32 @@
             square.classList.add('square');
             square.style.width = `${958/canvaSize}px`;
             container.append(square);
-            square.id = `s${i}`;
+            square.setAttribute('gradOpacity',0.1);
             square.addEventListener('mouseover', () => {
                 square.style.backgroundColor = 'skyblue';
+                square.style.opacity = square.getAttribute('gradOpacity');
+
             });
-            square.addEventListener('mouseout', () => {
+            square.addEventListener('mouseout', (e) => {
                 square.style.backgroundColor = finColor;
-                square.style.opacity = 0.1;
+                
             });
+            square.addEventListener('click', () => {
+                let opacityMore = Number(square.getAttribute('gradOpacity'));
+                if (opacityMore > 1){
+                    opacityMore = opacityMore - 1;
+                } else {
+                    opacityMore = opacityMore + 0.1;
+                }
+                square.setAttribute('gradOpacity', opacityMore);
+                square.style.opacity = square.getAttribute('gradOpacity');
+                
+            })
+            
         }
 
         
-
+            
         restart.addEventListener('click', () => {
             canvaSize = prompt('Please enter your desired canva size');
             canvaSize = Number(canvaSize);
@@ -103,15 +119,26 @@
                 for (let i=0; i<canvaSize * canvaSize; i++){
                     const square = document.createElement('div');
                     square.classList.add('square');
-                    square.id = `s${i}`;
                     square.style.width = `${958/canvaSize}px`;
                     container.append(square);
+                    square.setAttribute('gradOpacity',0.1);
                     square.addEventListener('mouseover', () => {
                         square.style.backgroundColor = 'skyblue';
+                        square.style.opacity = square.getAttribute('gradOpacity');
                     });
                     square.addEventListener('mouseout', () => {
                         square.style.backgroundColor = finColor;
-                        square.style.opacity = 0.1;
+                    })
+                    square.addEventListener('click', () => {
+                        let opacityMore = Number(square.getAttribute('gradOpacity'));
+                        if (opacityMore > 1){
+                            opacityMore = opacityMore - 1;
+                        } else {
+                            opacityMore = opacityMore + 0.1;
+                        }
+                        square.setAttribute('gradOpacity', opacityMore);
+                        square.style.opacity = square.getAttribute('gradOpacity');
+                        
                     })
                 }
 
